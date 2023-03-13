@@ -23,6 +23,8 @@ For more info, see previous <a href = "https://github.com/lawalter/r-shiny-elect
 
 All of the following steps can be run exclusively in the RStudio **Terminal** (right to **console**).
 
+0. Install R, Rstudio.
+
 1.  Install **Node.js**: <a href = "https://nodejs.org/en/" target = "_blank"> Offical Page </a>
 
 2.  Install **Electron Forge** using `npm` (`npm` is installed with `Node.js`)
@@ -31,25 +33,27 @@ All of the following steps can be run exclusively in the RStudio **Terminal** (r
 
 3.  Check your versions of `node` and `npm` in **Terminal** with `node -v`, `npm -v`.
 
+4. Fork this repository and clone it to your local PC
+
 ### Project
 
-4.  Open an existing R project, create a new one, or initialize a project by cloning a git repo.
+5.  Open an existing R project, create a new one, or initialize a project by cloning a git repo.
 
-> 💡 I recommend create new one and copy this template's content
+> 💡 I recommend open cloned `.Rproj` file
 
-5.  Make sure your directory is in **R project** folder (from 4.), so you're ready to turn into an app.
+6.  Make sure your directory is in **R project** folder (from 4.), so you're ready to turn into an app.
 
 -   Run `pwd` on the command line to check what directory you are in. (*This may `.../Github/<PROJECT>`*)
 
 -   If you're not in the right folder, change your directory using `cd example/file/path` with the example path replaced with the appropriate path to your project.
 
-6.  In your project directory, install **Electron** locally by running `npx create-electron-app <APPNAME>`.
+7.  In your project directory, install **Electron** locally by running `npx create-electron-app <APPNAME>`.
 
 > 💡 Your app cannot be titled "app".
 
-7.  In your **<APPNAME>** folder, delete folder **src**.
+8.  In your `<APPNAME>` folder, delete folder **src**.
 
-8.  Move files (I typically use the R file pane gui) to your **<APPNAME>** folder, including:
+9.  Move files (I typically use the R file pane gui) to your `<APPNAME>` folder, including:
 
 -   `get-r-mac.sh`: for install local R into your project locally
 -   `add-cran-binary-pkgs.R`: for install R packages into your project locally
@@ -58,7 +62,7 @@ All of the following steps can be run exclusively in the RStudio **Terminal** (r
 -   Folder **shiny** from this templae, containing:
     -   `shiny/app.R`: **THIS IS YOUR SHINY APP'S CODE**
 
--   Folder **src** from this templae, containing:     
+-   Folder **src** from this template, containing:     
     -   src/failed.html     
     -   src/helpers.js     
     -   src/index.css     
@@ -67,22 +71,22 @@ All of the following steps can be run exclusively in the RStudio **Terminal** (r
     -   src/loading.html     
     - `src/main.js`: configure shiny electron app (like `width`, `height`)
 
-9. Change your directory to your new app folder `cd <APPNAME>` (*This may `.../Github/<Project>/<APPNAME>`*)
+10. Change your directory to your new app folder `cd <APPNAME>` (*This may `.../Github/<Project>/<APPNAME>`*)
 
 ### R
 
-10. Install R locally:
+11. Install R locally:
     -   First, check the version of R on your machine. In the R **Console**, run `version`. 
 
 > 💡 Your machine's installed R version and newly installed R version (in shiny electron project) MUST same
 
 -   Once you save the file, run the shell script in the Rstudio **terminal** with `sh ./get-r-mac.sh` (for install R into your project locally)
 
-11. If you don't have the `automagic` package installed, run `install.packages("automagic")` in the **console**.
+12. If you don't have the `automagic` package installed, run `install.packages("automagic")` in the **console**.
 
 ### Javascript
 
-12. Add additional dependencies to `package.json`. 
+13. Add additional dependencies to `package.json`. 
 
 - Replace the dependencies listed at the end of the script with the following. Take care not to paste over the final ending bracket `}` of the `.json` file.
 
@@ -122,13 +126,13 @@ All of the following steps can be run exclusively in the RStudio **Terminal** (r
 
 ### Shiny
 
-13. Build `app.R` as your application's code from Example code.
+14. Build `app.R` as your application's code from Example code.
 
 ## Build Shiny Electron App
 
 > 💡 You need to run this steps **whenever** you want to update Electron.
 
-14. In the Rstudio **terminal**, run `Rscript add-cran-binary-pkgs.R` to get packages for R.
+15. In the Rstudio **terminal**, run `Rscript add-cran-binary-pkgs.R` to get packages for R.
 
 > Note: Modules are updated frequently and as such are subject to changing version numbers. It is important to double-check that these dependencies are up-to-date by replacing their version numbers with any newer version numbers. You can accomplish this by manually searching the module names at <https://www.npmjs.com/>
 
@@ -136,10 +140,13 @@ All of the following steps can be run exclusively in the RStudio **Terminal** (r
 > 
 > 💡 Didn't checked in 2023, but still `^1.7.0` works, so don't change it unless it requires.
 
-15. Replace the `"lint": "echo \"No linting configured\""` line in `package.json` with `"lint": "eslint src --color"`
-16. Run `npm install` to add new dependencies you listed in `package.json` to the **node_modules** folder.
-17. Test to see if your app works by running `electron-forge start`
-18. If the app runs successfully, congratulations! Package and create the `.exe` on the command line with `electron-forge make`. Your app can be found in the **/out** folder.
+16. Replace the `"lint": "echo \"No linting configured\""` line in `package.json` with `"lint": "eslint src --color"`
+17. Run `npm install` to add new dependencies you listed in `package.json` to the **node_modules** folder.
+18. Test to see if your app works by running `electron-forge start`
+
+> 💡 If application keep running (not start), Try restart R with `CMD + Shift + 0` / **Session -> Restart R** in Rstudio. then retry 18.
+
+19. If the app runs successfully, congratulations! Package and create the `.exe` on the command line with `electron-forge make`. Your app can be found in the **/out** folder.
 
 Final. Unzip the result `zip file` and run `<APPNAME>.app`
 
