@@ -156,3 +156,14 @@ Final. Unzip the result `zip file` and run `<APPNAME>.app`
 
 - Raise an issue, please.
 
+#### require() of ES Module
+
+- Change `dependencies` (see [issue](/../../issues/2))
+```
+"dependencies": {
+    "axios": "^0.27.2",
+    "esm": "^3.2.25"
+    ...
+}
+```
+
