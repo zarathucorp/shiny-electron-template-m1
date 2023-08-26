@@ -11,11 +11,11 @@ For more info, see previous <a href = "https://github.com/lawalter/r-shiny-elect
 
 ## Version Info 
 
--   ![](https://img.shields.io/badge/R-gray?style=for-the-badge&logo=R) 4.2.2
--   ![](https://img.shields.io/badge/Shiny-gray?style=for-the-badge&logo=RStudio) 2022.12.0 Build 353
--   ![](https://img.shields.io/badge/node.js-gray?style=for-the-badge&logo=nodedotjs) v18.12.0
--   ![](https://img.shields.io/badge/npm-gray?style=for-the-badge&logo=npm) v8.19.2
--   ![](https://img.shields.io/badge/macOS-gray?style=for-the-badge&logo=apple) 13.2.1(22D68)
+-   ![](https://img.shields.io/badge/R-gray?style=for-the-badge&logo=R) 4.3.1
+-   ![](https://img.shields.io/badge/Shiny-gray?style=for-the-badge&logo=RStudio) 2023.06.1 Build 524
+-   ![](https://img.shields.io/badge/node.js-gray?style=for-the-badge&logo=nodedotjs) v18.15.0
+-   ![](https://img.shields.io/badge/npm-gray?style=for-the-badge&logo=npm) v9.8.1
+-   ![](https://img.shields.io/badge/macOS-gray?style=for-the-badge&logo=apple) 13.4.1 (c)
 
 ## Getting started
 
@@ -59,8 +59,9 @@ All of the following steps can be run exclusively in the RStudio **Terminal** (r
 -   `add-cran-binary-pkgs.R`: for install R packages into your project locally
 -   `start-shiny.R`: let electron call your shiny app
 
--   Folder **shiny** from this templae, containing:
+-   Folder **shiny** from this template, containing:
     -   `shiny/app.R`: **THIS IS YOUR SHINY APP'S CODE**
+    -   other required file (like `/www`)
 
 -   Folder **src** from this template, containing:     
     -   src/failed.html     
@@ -88,41 +89,33 @@ All of the following steps can be run exclusively in the RStudio **Terminal** (r
 
 13. Add additional dependencies to `package.json`. 
 
-- Replace the dependencies listed at the end of the script with the following. Take care not to paste over the final ending bracket `}` of the `.json` file.
+- Replace the dependencies (After **Author**) listed at the end of the script with the following. Take care not to paste over the final ending bracket `}` of the `.json` file.
 
 ``` js
   "repository": {
     "type": "git",
     "url": "<GITHUBURL>"
   },
-  "dependencies": {
+    "dependencies": {
     "axios": "0.27.2",
+    "electron-squirrel-startup": "^1.0.0",
     "esm": "^3.2.25",
-    "execa": "^5.1.1",
-    "electron-squirrel-startup": "^1.0.0"
+    "execa": "^5.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.21.0",
-    "@babel/plugin-transform-async-to-generator": "^7.20.7",
-    "@babel/preset-env": "^7.20.2",
-    "@babel/preset-react": "^7.18.6",
-    "eslint": "^8.35.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "fs-extra": "^11.1.0",
-    "@electron-forge/cli": "^6.0.5",
-    "@electron-forge/maker-deb": "^6.0.5",
-    "@electron-forge/maker-rpm": "^6.0.5",
-    "@electron-forge/maker-squirrel": "^6.0.5",
-    "@electron-forge/maker-zip": "^6.0.5",
-    "electron": "23.1.3"
-  }
+    "@babel/core": "^7.22.11",
+    "@babel/plugin-transform-async-to-generator": "^7.22.5",
+    "@babel/preset-env": "^7.22.10",
+    "@babel/preset-react": "^7.22.5",
+    "@electron-forge/cli": "^6.4.1",
+    "@electron-forge/maker-dmg": "^6.4.1",
+    "@electron-forge/maker-zip": "^6.4.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^6.4.1",
+    "electron": "^26.1.0",
+    "fs-extra": "^11.1.0"
 ```
 
-> 💡 I checked every dependencies manually and it's latest version based 2023.03 (except `axios`, `axios` version 1 doesn't work yet)
+> 💡 This work with 2023.08, do not update dependencies (axios & esm & execa)
 
 ### Shiny
 
@@ -130,25 +123,20 @@ All of the following steps can be run exclusively in the RStudio **Terminal** (r
 
 ## Build Shiny Electron App
 
-> 💡 You need to run this steps **whenever** you want to update Electron.
+> 💡 You need to run this steps **whenever** you want to update shiny application. 
 
 15. In the Rstudio **terminal**, run `Rscript add-cran-binary-pkgs.R` to get packages for R.
 
 > Note: Modules are updated frequently and as such are subject to changing version numbers. It is important to double-check that these dependencies are up-to-date by replacing their version numbers with any newer version numbers. You can accomplish this by manually searching the module names at <https://www.npmjs.com/>
 
-> 💡 We are using `"eslint-plugin-react-hooks": "^1.7.0"` because using the latest v2.4.0 throws a warning. 
-> 
-> 💡 Didn't checked in 2023, but still `^1.7.0` works, so don't change it unless it requires.
+16. Run `npm install` to add new dependencies you listed in `package.json` to the **node_modules** folder.
+17. Test to see if your app works by running `electron-forge start`
 
-16. Replace the `"lint": "echo \"No linting configured\""` line in `package.json` with `"lint": "eslint src --color"`
-17. Run `npm install` to add new dependencies you listed in `package.json` to the **node_modules** folder.
-18. Test to see if your app works by running `electron-forge start`
+> 💡 If application keep running (not start), Try restart R with `CMD + Shift + 0` / **Session -> Restart R** in Rstudio. then retry 17.
 
-> 💡 If application keep running (not start), Try restart R with `CMD + Shift + 0` / **Session -> Restart R** in Rstudio. then retry 18.
+18. If the app runs successfully, congratulations! Package and create the `.exe` on the command line with `electron-forge make`. Your app can be found in the **/out** folder.
 
-19. If the app runs successfully, congratulations! Package and create the `.exe` on the command line with `electron-forge make`. Your app can be found in the **/out** folder.
-
-Final. Unzip the result `zip file` and run `<APPNAME>.app`
+Final. Unzip the result `zip file` and run `<APPNAME>.app` 
 
 ------------------------------------------------------------------------
 
@@ -156,9 +144,10 @@ Final. Unzip the result `zip file` and run `<APPNAME>.app`
 
 - Raise an issue, please.
 
-#### require() of ES Module
+#### Error with require() of ES Module
 
 - Change `dependencies` (see [issue](/../../issues/2))
+
 ```
 "dependencies": {
     "axios": "^0.27.2",
@@ -167,3 +156,10 @@ Final. Unzip the result `zip file` and run `<APPNAME>.app`
 }
 ```
 
+#### Add not-CRAN packages
+
+- manually copy library from your Local's R library to **r-mac/library**, you can check with `.libPaths()` in R console.
+
+#### electron-forge start work, but electron-forge make not work
+
+- It seems to be problem caused by permission, **run .app file via terminal** with `sudo open ~~.app`.
