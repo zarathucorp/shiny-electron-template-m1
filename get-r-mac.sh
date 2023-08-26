@@ -8,7 +8,7 @@ set -e
 # Updated as big-sur / m1
 mkdir -p r-mac
 curl -o r-mac/latest_r.pkg \
-https://cloud.r-project.org/bin/macosx/big-sur-arm64/base/R-4.2.2-arm64.pkg
+https://cloud.r-project.org/bin/macosx/big-sur-arm64/base/R-4.3.1-arm64.pkg
 
 cd r-mac
 xar -xf latest_r.pkg
