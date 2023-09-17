@@ -7,6 +7,10 @@ Template & Instruction updated by <a href="https://github.com/jhk0530" target = 
 
 For more info, see previous <a href = "https://github.com/lawalter/r-shiny-electron-app" target = "_blank">repository</a> <br>
 
+## Guide article in R-bloggers (based on 2023.03)
+
+<a href='https://www.r-bloggers.com/2023/03/creating-standalone-apps-from-shiny-with-electron-2023-macos-m1/' target ='_blank'>Creating Standalone Apps from Shiny with Electron [2023, macOS M1]</a>
+
 ------------------------------------------------------------------------
 
 ## Version Info 
