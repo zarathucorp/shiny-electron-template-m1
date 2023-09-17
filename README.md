@@ -5,6 +5,8 @@ Instructions adapted from <a href="https://www.travishinkelman.com/post/deploy-s
 R Shiny Electron template created by <a href="https://github.com/dirkschumacher/r-shiny-electron">Dirk Shumacher</a> <br>
 Template & Instruction updated by <a href="https://github.com/jhk0530" target = "_blank">Jinhwan Kim</a> <br>
 
+For windows, see [this repository](https://github.com/zarathucorp/shiny-electron-template-windows-2023)
+
 For more info, see previous <a href = "https://github.com/lawalter/r-shiny-electron-app" target = "_blank">repository</a> <br>
 
 ## Guide article in R-bloggers (based on 2023.03)
