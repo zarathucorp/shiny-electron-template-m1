@@ -152,7 +152,7 @@ Final. Unzip the result `zip file` and run `<APPNAME>.app`
 
 #### Error with require() of ES Module
 
-- Change `dependencies` (see [issue](/../../issues/2))
+- Change `dependencies` (see [issue](https://github.com/zarathucorp/shiny-electron-template-m1-2023/issues/2))
 
 ```
 "dependencies": {
@@ -168,4 +168,17 @@ Final. Unzip the result `zip file` and run `<APPNAME>.app`
 
 #### electron-forge start work, but electron-forge make not work
 
-- It seems to be problem caused by permission, **run .app file via terminal** with `sudo open ~~.app`.
+- Change `forge.config.js` (see [issue](https://github.com/zarathucorp/shiny-electron-template-m1-2023/issues/5))
+
+```js
+module.exports = {
+  packagerConfig: {},
+  rebuildConfig: {},
+  makers: [
+    {
+      name: '@electron-forge/maker-zip',
+      platforms: ['win32', 'darwin']
+    }
+  ]
+};
+```
