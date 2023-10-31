@@ -197,7 +197,7 @@ app.on('ready', async () => {
   }
 
   const onErrorStartup = async () => {
-    await waitFor(1000) // TODO: hack, only emit if the loading screen is ready
+    await waitFor(10000) // TODO: hack, only emit if the loading screen is ready
     await emitSpashEvent('failed')
   }
 
