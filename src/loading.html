@@ -1,4 +1,5 @@
 <!-- Copyright (c) 2018 Dirk Schumacher, Noam Ross, Rich FitzJohn -->
+<!-- Copyright (c) 2024 Jinhwan Kim -->
 
 <!DOCTYPE html>
 <html>
@@ -27,14 +28,7 @@
           let el = document.getElementById('status')
           el.innerHTML = `<p>It takes longer than expected. Please wait a little more.</p>`;
         }
-      })
-      electron.ipcRenderer.on('failed', (event, _) => {
-        let el = document.getElementById('status')
-        el.innerHTML = `<h1>Failure</h1>
-        <p>We could not start the shiny application. Please report this issue to the developers of this      application.</p>`;
-        document.getElementById('loading-spinner').innerHTML = ''
-        failed = true;
-      })
+      })      
     </script>
   </body>
 </html>
