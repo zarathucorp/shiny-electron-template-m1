@@ -1,76 +1,72 @@
-# How to Make an R Shiny Electron App (2023, M1) 
+# shiny-electron-template-m1
 
-A setup guide by L. Abigail Walter <br> 
-Instructions adapted from <a href="https://www.travishinkelman.com/post/deploy-shiny-electron/">Travis Hinkelman</a> <br> 
-R Shiny Electron template created by <a href="https://github.com/dirkschumacher/r-shiny-electron">Dirk Shumacher</a> <br>
-Template & Instruction updated by <a href="https://github.com/jhk0530" target = "_blank">Jinhwan Kim</a> <br>
+## How to Make an R Shiny Electron App
 
-For windows, see [this repository](https://github.com/zarathucorp/shiny-electron-template-windows-2023)
+> [!NOTE] 
+>
+> A setup guide by L. Abigail Walter <br>
+> Instructions adapted from <a href="https://www.travishinkelman.com/post/deploy-shiny-electron/">Travis Hinkelman</a> <br>
+> R Shiny Electron template created by <a href="https://github.com/dirkschumacher/r-shiny-electron">Dirk Shumacher</a> <br>
+> Template & Instruction updated by <a href="https://github.com/jhk0530" target = "_blank">Jinhwan Kim</a> <br>
+> 
+> For more info, see previous <a href = "https://github.com/lawalter/r-shiny-electron-app" target = "_blank">repository</a> <br>
 
-For more info, see previous <a href = "https://github.com/lawalter/r-shiny-electron-app" target = "_blank">repository</a> <br>
+> [!TIP]
+> For Windows, see <a href ='https://github.com/zarathucorp/shiny-electron-template-windows' target = "_blank">this repository</a>
 
-## Guide article in R-bloggers (based on 2023.03)
+## Guide article in R-bloggers (based on 2023.03, may not work in 2024-)
 
 <a href='https://www.r-bloggers.com/2023/03/creating-standalone-apps-from-shiny-with-electron-2023-macos-m1/' target ='_blank'>Creating Standalone Apps from Shiny with Electron [2023, macOS M1]</a>
 
-------------------------------------------------------------------------
+## Versions info 
+![NodeJS](https://img.shields.io/badge/node.js-18.18.0-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![NPM](https://img.shields.io/badge/NPM-10.3.0-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
+![RStudio](https://img.shields.io/badge/RStudio-2023.12.0-4285F4?style=for-the-badge&logo=rstudio&logoColor=white)
+![R](https://img.shields.io/badge/r-4.3.2-%23276DC3.svg?style=for-the-badge&logo=r&logoColor=white)
+![Electron.js](https://img.shields.io/badge/Electron-7.2.0-191970?style=for-the-badge&logo=Electron&logoColor=white) 
+![macOS](https://img.shields.io/badge/macOS-14.2.1-FFFFFF?style=for-the-badge&logo=apple)
 
-## Version Info 
-
--   ![](https://img.shields.io/badge/R-gray?style=for-the-badge&logo=R) 4.3.1
--   ![](https://img.shields.io/badge/Shiny-gray?style=for-the-badge&logo=RStudio) 2023.06.1 Build 524
--   ![](https://img.shields.io/badge/node.js-gray?style=for-the-badge&logo=nodedotjs) v18.15.0
--   ![](https://img.shields.io/badge/npm-gray?style=for-the-badge&logo=npm) v9.8.1
--   ![](https://img.shields.io/badge/macOS-gray?style=for-the-badge&logo=apple) 13.4.1 (c)
+---
 
 ## Getting started
 
-### Environment
+### A. Environment setup
 
-All of the following steps can be run exclusively in the RStudio **Terminal** (right to **console**).
+> [!NOTE]
+> All of the following steps can be run exclusively in the RStudio **Terminal** (right to **console**).
+>
+> so **Terminal** means Rstudio's terminal using <kbd>Option</kbd> + <kbd>Shift</kbd> + <kbd>m</kbd>
 
-0. Install R, Rstudio.
+1. Install **R**, **Rstudio**.
+2. Install **Node.js**: from <a href = "https://nodejs.org/en/" target = "_blank"> offical page </a>
+3. Install **Electron Forge** using `npm` (`npm` is installed with `Node.js`)
+4. In the **Terminal**, run `sudo npm i -g @electron-forge/cli`, (`sudo` requires password)
 
-1.  Install **Node.js**: <a href = "https://nodejs.org/en/" target = "_blank"> Offical Page </a>
+> [!NOTE]
+> Check your versions of `node` and `npm` in **Terminal** with `node -v`, `npm -v`.
 
-2.  Install **Electron Forge** using `npm` (`npm` is installed with `Node.js`)
+5. Give **Star** ⭐, **Fork** this repository to your own account. Then **clone** it to your local PC
 
--   In the **Terminal**, run `sudo npm i -g @electron-forge/cli`, (`sudo` requires password)
+### B. Elecron project
 
-3.  Check your versions of `node` and `npm` in **Terminal** with `node -v`, `npm -v`.
+6.  Open an R project with cloned repository's `.Rproj` file.
+7.  In your project directory (may `Github/shiny-electron-template-m1`), install **Electron** locally by running `npx create-electron-app <APPNAME>`.
 
-4. Fork this repository and clone it to your local PC
+> [!WARNING]
+> You can not use `app` as `<APPNAME>` <br>
+> Assume using `myapp` in this tutorial
 
-### Project
+8.  In your `myapp` folder, **delete** `src` directory
+9.  Copy (or move) below files to your `myapp` folder:
 
-5.  Open an existing R project, create a new one, or initialize a project by cloning a git repo.
-
-> 💡 I recommend open cloned `.Rproj` file
-
-6.  Make sure your directory is in **R project** folder (from 4.), so you're ready to turn into an app.
-
--   Run `pwd` on the command line to check what directory you are in. (*This may `.../Github/<PROJECT>`*)
-
--   If you're not in the right folder, change your directory using `cd example/file/path` with the example path replaced with the appropriate path to your project.
-
-7.  In your project directory, install **Electron** locally by running `npx create-electron-app <APPNAME>`.
-
-> 💡 Your app cannot be titled "app".
-
-8.  In your `<APPNAME>` folder, delete folder **src**.
-
-9.  Move files (I typically use the R file pane gui) to your `<APPNAME>` folder, including:
-
--   `get-r-mac.sh`: for install local R into your project locally
--   `add-cran-binary-pkgs.R`: for install R packages into your project locally
--   `start-shiny.R`: let electron call your shiny app
+-   `get-r-mac.sh`: For install local R for electron app.
+-   `add-cran-binary-pkgs.R`: For install R packages into your project locally
+-   `start-shiny.R`: Let electron call your shiny app
 
 -   Folder **shiny** from this template, containing:
-    -   `shiny/app.R`: **THIS IS YOUR SHINY APP'S CODE**
-    -   other required file (like `/www`)
+    -  `shiny/app.R`: **THIS IS YOUR SHINY APP'S CODE**    
 
--   Folder **src** from this template, containing:     
-    -   src/failed.html     
+-   Folder **src** from this template, containing:         
     -   src/helpers.js     
     -   src/index.css     
     -   src/index.js     
@@ -78,107 +74,62 @@ All of the following steps can be run exclusively in the RStudio **Terminal** (r
     -   src/loading.html     
     - `src/main.js`: configure shiny electron app (like `width`, `height`)
 
-10. Change your directory to your new app folder `cd <APPNAME>` (*This may `.../Github/<Project>/<APPNAME>`*)
+10. Change your directory to new app folder `cd myapp` with **Terminal**
 
-### R
+### C. Setup R 
 
-11. Install R locally:
-    -   First, check the version of R on your machine. In the R **Console**, run `version`. 
+11. Install local R with `sh ./get-r-mac.sh`
+    -   First, check the version of R on your machine. In the R **Console**, run `version`.
 
-> 💡 Your machine's installed R version and newly installed R version (in shiny electron project) MUST same
+> [!WARNING]
+> **Your PC's R version** and **electron's R version** must same
 
--   Once you save the file, run the shell script in the Rstudio **terminal** with `sh ./get-r-mac.sh` (for install R into your project locally)
+12. Build `app.R` as your application's code.
 
-12. If you don't have the `automagic` package installed, run `install.packages("automagic")` in the **console**.
+> [!NOTE]
+> not only `app.R` also other required files for shiny application (like `/www`)
 
-### Javascript
+13. If you don't have the `automagic` package installed, run `install.packages("automagic")` in the **console**.
 
-13. Add additional dependencies to `package.json`. 
+14. In the Rstudio **terminal**, run `Rscript add-cran-binary-pkgs.R` to get packages for R.
 
-- Replace the dependencies (After **Author**) listed at the end of the script with the following. Take care not to paste over the final ending bracket `}` of the `.json` file.
+> [!NOTE]
+> If your shiny application uses not-CRAN packages (like `github` / `bioconductor`), See **Add not-CRAN packages** below.
+> 
 
-``` js
-  "repository": {
-    "type": "git",
-    "url": "<GITHUBURL>"
-  },
-    "dependencies": {
-    "axios": "0.27.2",
-    "electron-squirrel-startup": "^1.0.0",
-    "esm": "^3.2.25",
-    "execa": "^5.1.1"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.22.11",
-    "@babel/plugin-transform-async-to-generator": "^7.22.5",
-    "@babel/preset-env": "^7.22.10",
-    "@babel/preset-react": "^7.22.5",
-    "@electron-forge/cli": "^6.4.1",
-    "@electron-forge/maker-dmg": "^6.4.1",
-    "@electron-forge/maker-zip": "^6.4.1",
-    "@electron-forge/plugin-auto-unpack-natives": "^6.4.1",
-    "electron": "^26.1.0",
-    "fs-extra": "^11.1.0"
-```
+### D. Setup electron
 
-> 💡 This work with 2023.08, do not update dependencies (axios & esm & execa)
+15. Change `package.json` as <a target = "_blank" href='%5Bfix%5D%20pacakge-json'>`[fix] packages-json`</a>'s content. And modify **author** information.
 
-### Shiny
+> [!NOTE]
+> Node package's version confirmed in 2024.01
 
-14. Build `app.R` as your application's code from Example code.
+16. Change `forge.config.js` as <a target = "_blank" href = '/%5Bfix%5D%20forge.config.js'>`[fix] forge.config.js`</a>'s content. 
 
-## Build Shiny Electron App
+17. Run `sudo npm install` in **Terminal** to add new dependencies you listed in `package.json` to the **node_modules** folder.
 
-> 💡 You need to run this steps **whenever** you want to update shiny application. 
+### E. Build shiny.exe
 
-15. In the Rstudio **terminal**, run `Rscript add-cran-binary-pkgs.R` to get packages for R.
+> [!NOTE]
+> You need to run step after this, **whenever** you want to update shiny application.
 
-> Note: Modules are updated frequently and as such are subject to changing version numbers. It is important to double-check that these dependencies are up-to-date by replacing their version numbers with any newer version numbers. You can accomplish this by manually searching the module names at <https://www.npmjs.com/>
+18. Test your shiny application work by `electron-forge start` in **Terminal**.
 
-16. Run `npm install` to add new dependencies you listed in `package.json` to the **node_modules** folder.
-17. Test to see if your app works by running `electron-forge start`
+19. If error occurs while `electron-forge make` with `conf.d` Delete `r-mac/fontconfig/fonts/conf.d`. see this [issue](https://github.com/zarathucorp/shiny-electron-template-m1/issues/5)
 
-> 💡 If application keep running (not start), Try restart R with `CMD + Shift + 0` / **Session -> Restart R** in Rstudio. then retry 17.
-
-18. If the app runs successfully, congratulations! Package and create the `.exe` on the command line with `electron-forge make`. Your app can be found in the **/out** folder.
-
-Final. Unzip the result `zip file` and run `<APPNAME>.app` 
+20. If the app runs successfully, congratulations! Create the `.exe`(as ZIP) on the `electron-forge make` in **Terminal**. Your app can be found in the **/out** folder. (Strongly recommend to **change read-only property** with mac's `Finder`)
 
 ------------------------------------------------------------------------
 
-## Trouble shooting
+## Additionals
 
 - Raise an issue, please.
 
-#### Error with require() of ES Module
+### Error with require() of ES Module
 
-- Change `dependencies` (see [issue](https://github.com/zarathucorp/shiny-electron-template-m1-2023/issues/2))
+It doesn't affect to run shiny.
 
-```
-"dependencies": {
-    "axios": "^0.27.2",
-    "esm": "^3.2.25"
-    ...
-}
-```
+### Add not-CRAN packages
 
-#### Add not-CRAN packages
+- manually copy library from your **Local's R library** to **r-mac/library**, You can check Local's R library with `.libPaths()` in **R console**.
 
-- manually copy library from your Local's R library to **r-mac/library**, you can check with `.libPaths()` in R console.
-
-#### electron-forge start work, but electron-forge make not work
-
-- Change `forge.config.js` (see [issue](https://github.com/zarathucorp/shiny-electron-template-m1-2023/issues/5))
-
-```js
-module.exports = {
-  packagerConfig: {},
-  rebuildConfig: {},
-  makers: [
-    {
-      name: '@electron-forge/maker-zip',
-      platforms: ['win32', 'darwin']
-    }
-  ]
-};
-```
