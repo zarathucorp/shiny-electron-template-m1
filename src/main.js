@@ -1,46 +1,38 @@
 // Copyright (c) 2018 Dirk Schumacher, Noam Ross, Rich FitzJohn
-
-import { app, session, BrowserWindow } from 'electron'
+// Copyright (c) 2024 Jinhwan Kim
+import { 
+  app, 
+  session, 
+  BrowserWindow 
+} from 'electron'
 
 import path from 'path'
 import http from 'axios'
 import os from 'os'
 import execa from 'execa'
-import { randomPort, waitFor, getRPath } from './helpers'
+import { 
+  randomPort, 
+  waitFor, 
+  getRPath 
+} from './helpers'
 
 const rPath = getRPath(os.platform())
 
-// signal if a shutdown of the app was requested
-// this is used to prevent an error window once the R session dies
-let shutdown = false
+let shutdown = false;
 
 const rpath = path.join(app.getAppPath(), rPath)
 const libPath = path.join(rpath, 'library')
 const rscript = path.join(rpath, 'bin', 'R')
-
 const shinyAppPath = path.join(app.getAppPath(), 'shiny')
 
-const backgroundColor = '#2c3e50'
+const backgroundColor = '#2c3e50';
 
-// We have to launch a child process for the R shiny webserver
-// Things we need to take into account:
-  // The process dies during setup
-// The process dies during app usuage (e.g. the OS kills the process)
-// At the random port, another webserver is running
-// at any given time there should be 0 or 1 shiny processes
-let rShinyProcess = null
+let rShinyProcess = null;
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
   app.quit()
 }
 
-// tries to start a webserver
-// attempt - a counter how often it was attempted to start a webserver
-// use the progress call back to listen for intermediate status reports
-// use the onErrorStartup callback to react to a critical failure during startup
-// use the onErrorLater callback to handle the case when the R process dies
-// use onSuccess to retrieve the shinyUrl
 const tryStartWebserver = async (attempt, progressCallback, onErrorStartup, onErrorLater, onSuccess) => {
    if (attempt > 100) {
      await progressCallback({attempt: attempt, code: 'failed'})
@@ -73,20 +65,20 @@ const tryStartWebserver = async (attempt, progressCallback, onErrorStartup, onEr
 
    let shinyProcessAlreadyDead = false
    rShinyProcess = execa(rscript,
-                         ['--vanilla', '-f', path.join(app.getAppPath(), 'start-shiny.R')],
-                         { env: {
-                           'WITHIN_ELECTRON': '1', // can be used within an app to implement specific behaviour
-                           'RHOME': rpath,
-                           'R_HOME_DIR': rpath,
-                           'RE_SHINY_PORT': shinyPort,
-                           'RE_SHINY_PATH': shinyAppPath,
-                           'R_LIBS': libPath,
-                           'R_LIBS_USER': libPath,
-                           'R_LIBS_SITE': libPath,
-                           'R_LIB_PATHS': libPath} }).catch((e) => {
-                             shinyProcessAlreadyDead = true
-                             onError(e)
-                           })
+     ['--vanilla', '-f', path.join(app.getAppPath(), 'start-shiny.R')], { 
+       env: {
+         'WITHIN_ELECTRON': '1', 
+         'RHOME': rpath,
+         'R_HOME_DIR': rpath,
+         'RE_SHINY_PORT': shinyPort,
+         'RE_SHINY_PATH': shinyAppPath,
+         'R_LIBS': libPath,
+         'R_LIBS_USER': libPath,
+         'R_LIBS_SITE': libPath,
+         'R_LIB_PATHS': libPath} }).catch((e) => {
+           shinyProcessAlreadyDead = true
+           onError(e)
+         })
 
   let url = `http://127.0.0.1:${shinyPort}`
   for (let i = 0; i <= 50; i++) {
@@ -94,7 +86,6 @@ const tryStartWebserver = async (attempt, progressCallback, onErrorStartup, onEr
     await waitFor(500)
     try {
       const res = await http.head(url, {timeout: 1000})
-      // TODO: check that it is really shiny and not some other webserver
       if (res.status === 200) {
         await progressCallback({attempt: attempt, code: 'success'})
         shinyRunning = true
@@ -108,8 +99,6 @@ const tryStartWebserver = async (attempt, progressCallback, onErrorStartup, onEr
   try { rShinyProcess.kill() } catch (e) {}
 }
 
-  // Keep a global reference of the window object, if you don't, the window will
-  // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 let loadingSplashScreen
 let errorSplashScreen
@@ -119,6 +108,8 @@ const createWindow = (shinyUrl) => {
     width: 1600,
     height: 900,
     show: false,
+    // icon: __dirname + '/favicon.ico',
+    autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true
@@ -126,8 +117,6 @@ const createWindow = (shinyUrl) => {
   })
 
   mainWindow.loadURL(shinyUrl)
-
-  // mainWindow.webContents.openDevTools()
 
   mainWindow.on('closed', () => {
     mainWindow = null
@@ -155,9 +144,6 @@ const createErrorScreen = () => {
   errorSplashScreen = createSplashScreen('failed')
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
   // Set a content security policy
   session.defaultSession.webRequest.onHeadersReceived((_, callback) => {
@@ -171,7 +157,6 @@ app.on('ready', async () => {
     `})
   })
 
-  // Deny all permission requests
   session.defaultSession.setPermissionRequestHandler((_1, _2, callback) => {
     callback(false)
   })
@@ -184,7 +169,6 @@ app.on('ready', async () => {
     } catch (e) {}
   }
 
-  // pass the loading events down to the loadingSplashScreen window
   const progressCallback = async (event) => {
     await emitSpashEvent('start-webserver-event', event)
   }
@@ -219,8 +203,4 @@ app.on('window-all-closed', () => {
   try {
   rShinyProcess.kill()
   } catch (e) {}
-})
-
-app.on('activate', () => {
-
 })
