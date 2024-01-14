@@ -1,14 +1,21 @@
 # Copyright (c) 2018 Dirk Schumacher, Noam Ross, Rich FitzJohn
-# Copyright (c) 2023 Jinhwan Kim
+# Copyright (c) 2023-2024 Jinhwan Kim. All rights reserved.
 
 #!/usr/bin/env bash
 set -e
 
 # Download and extract the main Mac Resources directory
-# Updated as big-sur / m1
+# Updated as Sonoma / m1
 mkdir -p r-mac
 curl -o r-mac/latest_r.pkg \
-https://cloud.r-project.org/bin/macosx/big-sur-arm64/base/R-4.3.1-arm64.pkg
+https://cloud.r-project.org/bin/macosx/big-sur-arm64/base/R-4.3.2-arm64.pkg
+
+# For Old version see below directory and change appropriately
+# https://cloud.r-project.org/bin/macosx/big-sur-arm64/base/<...>
+#
+# Example: For R 4.3.1 Version, use below for line 11.
+# https://cloud.r-project.org/bin/macosx/big-sur-arm64/base/R-4.3.1-arm64.pkg
+#
 
 cd r-mac
 xar -xf latest_r.pkg
