@@ -99,7 +99,7 @@
 
 ### D. Setup electron
 
-15. Change `package.json` as <a target = "_blank" href='%5Bfix%5D%20pacakge-json'>`[fix] packages-json`</a>'s content. And modify **author** information.
+15. Change `package.json` as <a target = "_blank" href='%5Bfix%5D%20package-json'>`[fix] packages-json`</a>'s content. And modify **author** information.
 
 > [!NOTE]
 > Node package's version confirmed in 2024.01
