@@ -29,10 +29,6 @@ const backgroundColor = '#2c3e50';
 
 let rShinyProcess = null;
 
-if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
-  app.quit()
-}
-
 const tryStartWebserver = async (attempt, progressCallback, onErrorStartup, onErrorLater, onSuccess) => {
    if (attempt > 100) {
      await progressCallback({attempt: attempt, code: 'failed'})

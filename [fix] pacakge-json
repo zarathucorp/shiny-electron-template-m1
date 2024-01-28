@@ -4,11 +4,6 @@
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": "src/index.js",
-  "scripts": {
-    "start": "electron-forge start",
-    "make": "electron-forge make"
-  },
-  "keywords": [],
   "author": {
     "name": "jhk0530",
     "email": "hwanistic@gmail.com"
@@ -20,7 +15,6 @@
   },
   "dependencies": {
     "axios": "0.27.2",
-    "electron-squirrel-startup": "^1.0.0",
     "esm": "^3.2.25",
     "execa": "^5.1.1"
   },
