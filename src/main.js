@@ -6,27 +6,45 @@ import {
   BrowserWindow 
 } from 'electron'
 
-import path from 'path'
-import http from 'axios'
-import os from 'os'
-import execa from 'execa'
-import { 
-  randomPort, 
-  waitFor, 
-  getRPath 
-} from './helpers'
+import path from 'path';
+import http from 'axios';
+import os from 'os';
+import execa from 'execa';
 
-const rPath = getRPath(os.platform())
+// Helpers
+
+const rPath = 'r-mac';
+
+const randomPort = (exclude) => {
+  let min = 3000;
+  let max = 8000;
+  let randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
+  while (exclude.includes(randomInt)) {
+    randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  return randomInt;
+}
+
+let shinyPort = randomPort(
+  [3659, 4045, 5060, 5061, 6000, 6566, 6665, 6666, 6667, 6668, 6669, 6697]
+);
+// forbiden ports at 2024-01-28
+// https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/net/base/port_util.cc
+
+const waitFor = (milliseconds) => {
+  return new Promise((resolve, _reject) => {
+    setTimeout(resolve, milliseconds);
+  })
+}
+
+const rpath = path.join(app.getAppPath(), rPath);
+const libPath = path.join(rpath, 'library');
+const rscript = path.join(rpath, 'bin', 'R');
+const shinyAppPath = path.join(app.getAppPath(), 'shiny');
+
+const backgroundColor = '#2c3e50'; // electron
 
 let shutdown = false;
-
-const rpath = path.join(app.getAppPath(), rPath)
-const libPath = path.join(rpath, 'library')
-const rscript = path.join(rpath, 'bin', 'R')
-const shinyAppPath = path.join(app.getAppPath(), 'shiny')
-
-const backgroundColor = '#2c3e50';
-
 let rShinyProcess = null;
 
 const tryStartWebserver = async (attempt, progressCallback, onErrorStartup, onErrorLater, onSuccess) => {
@@ -40,8 +58,6 @@ const tryStartWebserver = async (attempt, progressCallback, onErrorStartup, onEr
      await onErrorStartup() // should not happen
      return
    }
-
-   let shinyPort = randomPort()
 
    await progressCallback({attempt: attempt, code: 'start'})
 

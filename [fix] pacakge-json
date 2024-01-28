@@ -19,10 +19,6 @@
     "execa": "^5.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.20",
-    "@babel/plugin-transform-async-to-generator": "^7.22.5",
-    "@babel/preset-env": "^7.22.20",
-    "@babel/preset-react": "^7.22.15",
     "@electron-forge/cli": "^7.2.0",
     "@electron-forge/maker-zip": "^7.2.0",
     "electron": "^26.2.1",
