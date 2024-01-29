@@ -18,13 +18,13 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
   
-  .spinner {
-    margin: 100px auto;
-    width: 50px;
-    height: 40px;
-    text-align: center;
-    font-size: 10px;
-  }
+.spinner {
+  margin: 100px auto;
+  width: 50px;
+  height: 40px;
+  text-align: center;
+  font-size: 10px;
+}
 
 .spinner > div {
   background-color: white;
@@ -72,8 +72,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 }
 
 #status {
-text-align: center;
-color: white;
-font-size: 10px;	
-font-family: Arial,Helvetica Neue,Helvetica,sans-serif; 
+  text-align: center;
+  color: white;
+  font-size: 10px;	
+  font-family: Arial,Helvetica Neue,Helvetica,sans-serif; 
 }
