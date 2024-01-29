@@ -9,7 +9,7 @@
     "email": "hwanistic@gmail.com"
   },
   "license": "MIT",
-   "repository": {
+  "repository": {
     "type": "git",
     "url": "https://github.com/zarathucorp/shiny-electron-template-m1"
   },
