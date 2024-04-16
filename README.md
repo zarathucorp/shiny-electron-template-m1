@@ -133,3 +133,8 @@ It doesn't affect to run shiny.
 
 - manually copy library from your **Local's R library** to **r-mac/library**, You can check Local's R library with `.libPaths()` in **R console**.
 
+### Infinite loading in Electron-forge start / make
+
+- First, change app.R code as basic [example](https://github.com/rstudio/shiny/blob/main/inst/examples/01_hello/app.R).
+- If this works well, your app.R code has problem. In my case, I updated R package in shiny application but not in library of R-win directory. 
+- So update them with recent version, and try again will work.  
